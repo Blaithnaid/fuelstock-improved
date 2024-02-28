@@ -1,7 +1,7 @@
 -- Dynamic Web Development Framework ~ Assignment 2 ~ Improved Fuel Stock Management System
 -- Author: Iarla Sparrow Burke ~ G00405899 ~ Created: 2024
-DROP USER IF EXISTS fuel_admin@localhost;
-CREATE USER 'fueladmin'@'localhost' IDENTIFIED BY 'petrolhead';
+-- DROP USER IF EXISTS fuel_admin@localhost;
+-- CREATE USER 'fueladmin'@'localhost' IDENTIFIED BY 'petrolhead';
 -- Set storage engine to InnoDB
 SET default_storage_engine=InnoDB;
 -- Delete database if it currently exists
@@ -27,7 +27,7 @@ INSERT INTO REF_FUEL_TYPES (FUEL_TYPE_NAME, FUEL_TYPE_DESCRIPTION) VALUES ('Elec
 
 DROP TABLE IF EXISTS REF_TRANSACTION_TYPES; -- Delete the table if it exists, then create it
 CREATE TABLE REF_TRANSACTION_TYPES (
-    TRANSACTION_TYPE_CODE INT UNSIGNED NOT NULL AUTO_INCREMENT, -- Primary key - cannot be negative, or null
+    TRANSACTION_TYPE_CODE SMALLINT(2) UNSIGNED NOT NULL AUTO_INCREMENT, -- Primary key - cannot be negative, or null
     TRANSACTION_TYPE_NAME ENUM ('Purchase', 'Sale', 'Refund') NOT NULL, -- Name of transaction type. enum of 3 values
     LAST_EDITED TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Timestamp of last edit
     PRIMARY KEY (TRANSACTION_TYPE_CODE)
@@ -64,7 +64,7 @@ DROP TABLE IF EXISTS TRANSACTIONS; -- Delete the table if it exists, then create
 CREATE TABLE TRANSACTIONS (
     TRANSACTION_ID SMALLINT(2) UNSIGNED NOT NULL AUTO_INCREMENT,
     FUEL_TYPE_CODE SMALLINT(2) UNSIGNED NOT NULL,
-    TRANSACTION_TYPE_CODE INT UNSIGNED NOT NULL,
+    TRANSACTION_TYPE_CODE SMALLINT(2) UNSIGNED NOT NULL,
     TRANSACTION_DATE DATE NOT NULL,
     TRANSACTION_AMOUNT INT,
     OTHER_DETAILS VARCHAR(255),
