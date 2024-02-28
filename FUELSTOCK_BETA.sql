@@ -1,3 +1,7 @@
+-- Dynamic Web Development Framework ~ Assignment 2 ~ Improved Fuel Stock Management System
+-- Author: Iarla Sparrow Burke ~ G00405899 ~ Created: 2024
+DROP USER IF EXISTS fuel_admin@localhost;
+CREATE USER 'fueladmin'@'localhost' IDENTIFIED BY 'petrolhead';
 -- Set storage engine to InnoDB
 SET default_storage_engine=InnoDB;
 -- Delete database if it currently exists
@@ -11,7 +15,7 @@ USE FUELSTOCK_BETA;
 
 DROP TABLE IF EXISTS REF_FUEL_TYPES; -- Delete the table if it exists, then create it
 CREATE TABLE REF_FUEL_TYPES (
-    FUEL_TYPE_CODE INT(2) UNSIGNED NOT NULL AUTO_INCREMENT, -- Primary key - cannot be negative, or null
+    FUEL_TYPE_CODE SMALLINT(2) UNSIGNED NOT NULL AUTO_INCREMENT, -- Primary key - cannot be negative, or null
     FUEL_TYPE_NAME ENUM ('Petrol', 'Diesel', 'Electricity') NOT NULL, -- Name of fuel type. enum of 3 values
     FUEL_TYPE_DESCRIPTION VARCHAR(64) NOT NULL, -- Description of fuel type. varchar of length 64
     LAST_EDITED TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Timestamp of last edit

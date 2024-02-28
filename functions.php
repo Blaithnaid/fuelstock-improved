@@ -1,9 +1,9 @@
 <?php
 function createConnection() {
     $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "FUELSTOCK";
+    $username = "fueladmin";
+    $password = "petrolhead";
+    $dbname = "fuelstock";
 
     // Create connection
     $connection = new mysqli($servername, $username, $password, $dbname);
@@ -12,4 +12,3 @@ function createConnection() {
     }
     return $connection;
 }
-?>
