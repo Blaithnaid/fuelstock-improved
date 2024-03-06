@@ -12,3 +12,8 @@ function createConnection() {
     }
     return $connection;
 }
+
+function redirectLogin() {
+    header("Location: login.html");
+    exit();
+}
