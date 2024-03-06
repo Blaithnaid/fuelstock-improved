@@ -6,6 +6,10 @@
         die("Connection failed: " . mysqli_connect_error());
     }
 
+    // if (!isset($_SESSION['username'])) { // Check if user is logged in
+    //     redirectLogin(); // Redirect to login page if they aren't
+    // }
+
     // Che
 
     // Check if id is set in POST
@@ -41,6 +45,7 @@
             <ul id="menu">
                 <li><a href="select.php"><b><u>Select/Delete/Update</u></b></a></li>
                 <li><a href="insert.php"><u>Insert</u></a></li>
+            </ul>
         </div>
         <div class="content">
             <p>Enter a search term below to query the database. Pick a table from the drop-down on the right to refine
