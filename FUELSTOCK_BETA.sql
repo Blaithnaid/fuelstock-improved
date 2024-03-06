@@ -1,5 +1,6 @@
 -- Dynamic Web Development Framework ~ Assignment 2 ~ Improved Fuel Stock Management System
 -- Author: Iarla Sparrow Burke ~ G00405899 ~ Created: 2024
+-- Commented out: Creating alternative user
 -- DROP USER IF EXISTS fuel_admin@localhost;
 -- CREATE USER 'fueladmin'@'localhost' IDENTIFIED BY 'petrolhead';
 -- Set storage engine to InnoDB

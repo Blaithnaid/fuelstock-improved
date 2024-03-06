@@ -1,9 +1,9 @@
 <?php
 function createConnection() {
     $servername = "localhost";
-    $username = "fueladmin";
-    $password = "petrolhead";
-    $dbname = "fuelstock";
+    $username = "root";
+    $password = "";
+    $dbname = "fuelstock_beta";
 
     // Create connection
     $connection = new mysqli($servername, $username, $password, $dbname);

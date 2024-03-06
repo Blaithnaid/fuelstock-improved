@@ -1,4 +1,6 @@
 <?php
+    include("functions.php");
+    $conn = createConnection();
     // Create connection credentials
     $servername = "localhost";
     $username = "root";
