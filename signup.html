@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Fuel Stock Interface - Login</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Fuel Stock Interface - Sign Up</h1>
+            <ul id="menu">
+                <li><a href="login.html"><b><u>Log In</u></b></a></li>
+                <li><a href="signup.html"><u>Sign Up</u></a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <p>Enter a search term below to query the database. Pick a table from the drop-down on the right to refine
+                your selection.</p>
+            <form id="loginform" action="select.php" method="post">
+                <label for="searchq">Search Query: </label>
+                <input type="text" name="searchq" id="searchq">
+                <input type="submit" name="submit" value="Submit">
+                <label for="columnq">In Column: </label>
+                <select name="columnq" id="columnq">
+                    <option value="ALL">All</option>
+                    <option value="TRANSACTION_ID">Transaction ID</option>
+                    <option value="FUEL_TYPE_CODE">Fuel Type Code</option>
+                    <option value="TRANSACTION_TYPE_CODE">Transaction Type Code</option>
+                    <option value="TRANSACTION_DATE">Transaction Date</option>
+                    <option value="TRANSACTION_AMOUNT">Transaction Amount</option>
+                    <option value="OTHER_DETAILS">Other Details</option>
+                </select>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
