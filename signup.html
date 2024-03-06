@@ -16,22 +16,13 @@
             </ul>
         </div>
         <div class="content">
-            <p>Enter a search term below to query the database. Pick a table from the drop-down on the right to refine
-                your selection.</p>
-            <form id="loginform" action="select.php" method="post">
-                <label for="searchq">Search Query: </label>
-                <input type="text" name="searchq" id="searchq">
+            <p>Enter your details below to sign up for an account.</p>
+            <form id="signupform" action="insert.php" method="post">
+                <label for="username">Username: </label>
+                <input type="text" name="username" id="username">
+                <label for="password">Password: </label>
+                <input type="password" name="password" id="password">
                 <input type="submit" name="submit" value="Submit">
-                <label for="columnq">In Column: </label>
-                <select name="columnq" id="columnq">
-                    <option value="ALL">All</option>
-                    <option value="TRANSACTION_ID">Transaction ID</option>
-                    <option value="FUEL_TYPE_CODE">Fuel Type Code</option>
-                    <option value="TRANSACTION_TYPE_CODE">Transaction Type Code</option>
-                    <option value="TRANSACTION_DATE">Transaction Date</option>
-                    <option value="TRANSACTION_AMOUNT">Transaction Amount</option>
-                    <option value="OTHER_DETAILS">Other Details</option>
-                </select>
             </form>
         </div>
     </div>
