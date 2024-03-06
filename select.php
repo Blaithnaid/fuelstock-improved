@@ -6,6 +6,8 @@
         die("Connection failed: " . mysqli_connect_error());
     }
 
+    // Che
+
     // Check if id is set in POST
     if(isset($_POST['id'])) {
         // Get id from POST
@@ -67,6 +69,7 @@
                         <th>Transaction Date</th>
                         <th>Transaction Amount</th>
                         <th>Other Details</th>
+                        <th>Last Edited</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -93,7 +96,7 @@
                         if ($result->num_rows > 0) {
                             // output data of each row
                             while ($row = $result->fetch_assoc()) {
-                                echo "<tr><td>" . $row["TRANSACTION_ID"] . "</td><td>" . $row["FUEL_TYPE_CODE"] . "</td><td>" . $row["TRANSACTION_TYPE_CODE"] . "</td><td>" . $row["TRANSACTION_DATE"] . "</td><td>" . $row["TRANSACTION_AMOUNT"] . "</td><td>" . $row["OTHER_DETAILS"] . "</td>";
+                                echo "<tr><td>" . $row["TRANSACTION_ID"] . "</td><td>" . $row["FUEL_TYPE_CODE"] . "</td><td>" . $row["TRANSACTION_TYPE_CODE"] . "</td><td>" . $row["TRANSACTION_DATE"] . "</td><td>" . $row["CURRENCY_SYMBOL"] . $row["TRANSACTION_AMOUNT"] . "</td><td>" . $row["OTHER_DETAILS"] . "</td><td>" . $row["LAST_EDITED"] . "</td>";
                                 echo "<td><form action='' method='post' onsubmit='return confirm(\"Are you sure you want to delete this row?\");'><input type='hidden' name='id' value='" . $row["TRANSACTION_ID"] . "'><input type='submit' value='Delete'></form></td>";
                                 echo "<td><form action='update.php' method='post'><input type='hidden' name='id' value='" . $row["TRANSACTION_ID"] . "'><input type='submit' value='Update'></form></td></tr>";
                             }
