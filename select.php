@@ -1,20 +1,8 @@
 <?php
-    include("functions.php");
-    $conn = createConnection();
-    // Create connection credentials
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "FUELSTOCK";
+    include("functions.php"); // Import createConnection(); function
+    $conn = createConnection(); // Create a connection to the database via createConnection(); 
 
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    if(!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-
-    // Check connection
-    if (!$conn) {
+    if (!$conn) { // Check connection
         die("Connection failed: " . mysqli_connect_error());
     }
 
