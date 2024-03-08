@@ -14,6 +14,6 @@ function createConnection() {
 }
 
 function redirectLogin() {
-    header("Location: login.html");
+    header("Location: login.php");
     exit();
 }
