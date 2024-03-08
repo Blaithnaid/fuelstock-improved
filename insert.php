@@ -1,4 +1,6 @@
 <?php
+    require_once 'functions.php'; // Import the functions.php file so we can use createConnection()
+
     // Start session
     session_start();
 
@@ -86,14 +88,8 @@
                     $transaction_amount = $_POST['transaction_amount'];
                     $other_details = $_POST['other_details'];
 
-                    // Create connection credentials
-                    $servername = "localhost";
-                    $username = "root";
-                    $password = "";
-                    $dbname = "FUELSTOCK";
-
                     // Create connection
-                    $conn = new mysqli($servername, $username, $password, $dbname);
+                    $conn = createConnection();
                     if(!$conn) {
                         die("Connection failed: " . mysqli_connect_error());
                     }
