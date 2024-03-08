@@ -1,5 +1,5 @@
 <?php
-include('functions.php'); // Import the functions.php file so we can use createConnection()
+require_once 'functions.php'; // Import the functions.php file so we can use createConnection()
 
 session_start(); // Start the session
 
