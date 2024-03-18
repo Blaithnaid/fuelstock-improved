@@ -21,21 +21,20 @@
                 <li><a href="signup.html"><u>Sign Up</u></a></li>
             </ul>
         </div>
-        <div class="content">
-            <p>Enter login details below.</p>
-            <form id="loginform" action="select.php" method="post">
-                <label for="username">Username: </label>
-                <input type="text" name="username" id="username">
-                <label for="password">Password: </label>
-                <input type="password" name="password" id="password">
-                <input type="submit" name="submit" value="Submit">
-            </form>
-            <p>Please take note:</p>
-            <ul>
-                <li>Your username must be unique.</li>
-                <li>Your password must be at least 8 characters long.</li>
-            </ul>
-        </div>
+        <div id="loginbox">
+		<h1>Login</h1>
+		<p>
+			<?php echo $promptText; ?>
+		</p>
+		<form action="login.php" method="post">
+			<input type="text" name="username" placeholder="Username" required>
+			<input type="password" name="password" placeholder="Password" required>
+			<input type="submit" value="Login">
+		</form>
+		<a href="register.php">
+			<h4>Create an Account</h4>
+		</a>
+	</div>
     </div>
 </body>
 

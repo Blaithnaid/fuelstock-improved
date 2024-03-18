@@ -131,6 +131,15 @@ CREATE TABLE USERS (
     UNIQUE (USERNAME), -- Username must be unique
     PRIMARY KEY (USER_ID)
 );
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(250) NOT NULL DEFAULT '',
+  `password` varchar(255) NOT NULL DEFAULT '',
+  `isAdmin` BOOLEAN NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 -- add an admin user to the USERS table
 INSERT INTO USERS (USERNAME, PASSWORD_HASH) VALUES ('admin', '21232f297a57a5a743894a0e4a801fc3'); -- admin password is 'admin'
