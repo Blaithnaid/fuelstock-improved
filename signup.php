@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $connection = createConnection();
 
         // insert the username and hashed password into the database
-        $query = "INSERT INTO users (`username`, `password_hash`) VALUES ('$username', '$hashedPassword')";
+        $query = "INSERT INTO users (`username`, `password`) VALUES ('$username', '$hashedPassword')";
         mysqli_query($connection, $query);
 
         // close the database connection

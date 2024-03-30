@@ -6,12 +6,6 @@
         die("Connection failed: " . mysqli_connect_error());
     }
 
-    // if (!isset($_SESSION['username'])) { // Check if user is logged in
-    //     redirectLogin(); // Redirect to login page if they aren't
-    // }
-
-    // Che
-
     // Check if id is set in POST
     if(isset($_POST['id'])) {
         // Get id from POST
