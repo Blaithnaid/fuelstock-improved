@@ -1,16 +1,9 @@
 <?php
     require_once 'functions.php'; // Import the functions.php file so we can use createConnection()
-
     // Start session
     session_start();
-
     // Check if user is logged in
-    if(!isset($_SESSION['username'])) {
-        header("Location: login.php");
-    }
-
-    // If not logged in, redirect to login page
-    if(!isset($_SESSION['username'])) {
+    if(!isset($_SESSION['user_id'])) {
         header("Location: login.php");
     }
 ?>

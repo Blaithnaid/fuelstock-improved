@@ -139,4 +139,4 @@ CREATE TABLE `users` (
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 -- add an admin user to the USERS table
-INSERT INTO USERS (USERNAME, PASSWORD_HASH) VALUES ('admin', '21232f297a57a5a743894a0e4a801fc3'); -- admin password is 'admin'
+INSERT INTO USERS (USERNAME, PASSWORD) VALUES ('admin', '21232f297a57a5a743894a0e4a801fc3'); -- admin password is 'admin'

@@ -14,7 +14,7 @@ if (isset($_SESSION["user_id"])) { // if the user is already logged in, redirect
         $promptText = "Connection failed: " . mysqli_connect_error();
     }
     if (validateUser($username, $password) === true) {
-        header("Location: index.php");
+        header("Location: select.php");
     } else {
         $promptText =
             "The entered username or password is incorrect.<br>Please try again.";
@@ -29,6 +29,15 @@ if (isset($_SESSION["user_id"])) { // if the user is already logged in, redirect
 <head>
     <title>Fuel Stock Interface - Login</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        #loginbox {
+            margin-top: 20px;
+        }
+
+        #loginbox input {
+            margin-top: 5px;
+        }
+    </style>
 </head>
 
 <body>
@@ -41,15 +50,15 @@ if (isset($_SESSION["user_id"])) { // if the user is already logged in, redirect
             </ul>
         </div>
         <div id="loginbox">
-            <h1>Login</h1>
+            <h1>Login</h1>           
+            <form action="login.php" method="post">
+                <input type="text" name="username" placeholder="Username" required><br>
+                <input type="password" name="password" placeholder="Password" required><br>
+                <input type="submit" value="Login">
+            </form>
             <p>
                 <?php echo $promptText; ?>
             </p>
-            <form action="login.php" method="post">
-                <input type="text" name="username" placeholder="Username" required>
-                <input type="password" name="password" placeholder="Password" required>
-                <input type="submit" value="Login">
-            </form>
        </div>
     </div>
 </body>
