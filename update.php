@@ -77,11 +77,13 @@ redirectLogin();
                     ?>
                     <form action='update_row.php' method='post' class='insert'>
                         <h2>Transaction ID: <?php echo $row["TRANSACTION_ID"]; ?></h2>
-                        <input type='hidden' name='id' value='<?php echo $row["TRANSACTION_ID"]; ?>'>
+                        <input type='hidden' name='id'
+                        value='<?php echo $row["TRANSACTION_ID"]; ?>'>
                         <label for='fuel_type_code'>Fuel Type Code: </label>
                         <input type='text' name='fuel_type_code' value='<?php echo $row["FUEL_TYPE_CODE"]; ?>'>
                         <label for='transaction_type_code'>Transaction Type Code: </label>
-                        <input type='text' name='transaction_type_code' value='<?php echo $row["TRANSACTION_TYPE_CODE"]; ?>'>
+                        <input type='text' name='transaction_type_code'
+                        value='<?php echo $row["TRANSACTION_TYPE_CODE"]; ?>'>
                         <label for='transaction_date'>Transaction Date: </label>
                         <input type='text' name='transaction_date' value='<?php echo $row["TRANSACTION_DATE"]; ?>'>
                         <label for='transaction_amount'>Transaction Amount: </label>
