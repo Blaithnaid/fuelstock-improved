@@ -1,3 +1,8 @@
+<?php
+require_once "functions.php";
+session_start();
+redirectLogin();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -57,16 +62,7 @@
                 $id = $_POST['id'];
 
                 // Create connection credentials
-                $servername = "localhost";
-                $username = "root";
-                $password = "";
-                $dbname = "FUELSTOCK";
-
-                // Create connection
-                $conn = new mysqli($servername, $username, $password, $dbname);
-                if (!$conn) {
-                    die("Connection failed: " . mysqli_connect_error());
-                }
+                $conn = createConnection();
 
                 // Create SQL query
                 $sql = "SELECT * FROM TRANSACTIONS WHERE TRANSACTION_ID = '$id'";
