@@ -1,5 +1,6 @@
 <?php
 include_once ("functions.php"); // Import createConnection(); function
+redirectLogin(); // Check if user is logged in
 $conn = createConnection(); // Create a connection to the database via createConnection(); 
 
 if (!$conn) { // Check connection
