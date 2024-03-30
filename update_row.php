@@ -1,3 +1,8 @@
+<?php
+require_once "functions.php";
+session_start();
+redirectLogin();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -41,22 +46,13 @@
             $other_details = $_POST['other_details'];
 
             // Create connection credentials
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "FUELSTOCK";
-
-            // Create connection
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            if (!$conn) {
-                die("Connection failed: " . mysqli_connect_error());
-            }
+            $conn = createConnection();
 
             // Create SQL query
             $sql = "UPDATE TRANSACTIONS SET FUEL_TYPE_CODE = '$fuel_type_code', TRANSACTION_TYPE_CODE = '$transaction_type_code', TRANSACTION_DATE = '$transaction_date', TRANSACTION_AMOUNT = '$transaction_amount', OTHER_DETAILS = '$other_details' WHERE TRANSACTION_ID = '$id'";
 
             // Execute SQL query and check result
-            if ($conn->query($sql) === TRUE) {
+            if ($conn->query($sql) === true) {
                 echo "<p>Record updated successfully</p>";
             } else {
                 echo "<p>Error: " . $sql . "<br>" . $conn->error . "</p>";
@@ -69,5 +65,4 @@
         ?>
     </div>
 </body>
-
-<style
+</html>
