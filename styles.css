@@ -56,3 +56,8 @@ td, th {
     word-wrap: break-word;
     white-space: normal;
 }
+
+#confirm_deletion {
+    background-color: white;
+    color: black;
+}

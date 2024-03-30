@@ -7,16 +7,17 @@
     }
 
     // Check if id is set in POST
-    if(isset($_POST['id'])) {
+    if(isset($_POST['row_id'])) {
         // Get id from POST
-        $id = $_POST['id'];
+        $id = $_POST['row_id'];
 
         // Create SQL query
         $sql = "DELETE FROM TRANSACTIONS WHERE TRANSACTION_ID = '$id'";
 
+        // TODO: move this lower in the file so it works w/ styling from the rest of the page
         // Execute SQL query and check result
         if ($conn->query($sql) === TRUE) {
-            echo "Record deleted successfully";
+            echo "<span id='confirm_deletion'>Record deleted successfully</span>";
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
@@ -96,7 +97,7 @@
                             // output data of each row
                             while ($row = $result->fetch_assoc()) {
                                 echo "<tr><td>" . $row["TRANSACTION_ID"] . "</td><td>" . $row["FUEL_TYPE_CODE"] . "</td><td>" . $row["TRANSACTION_TYPE_CODE"] . "</td><td>" . $row["TRANSACTION_DATE"] . "</td><td>" . $row["CURRENCY_SYMBOL"] . $row["TRANSACTION_AMOUNT"] . "</td><td>" . $row["OTHER_DETAILS"] . "</td><td>" . $row["LAST_EDITED"] . "</td>";
-                                echo "<td><form action='' method='post' onsubmit='return confirm(\"Are you sure you want to delete this row?\");'><input type='hidden' name='id' value='" . $row["TRANSACTION_ID"] . "'><input type='submit' value='Delete'></form></td>";
+                                echo "<td><form action='' method='post' onsubmit='return confirm(\"Are you sure you want to delete this row?\");'><input type='hidden' name='row_id' value='" . $row["TRANSACTION_ID"] . "'><input type='submit' value='Delete'></form></td>";
                                 echo "<td><form action='update.php' method='post'><input type='hidden' name='id' value='" . $row["TRANSACTION_ID"] . "'><input type='submit' value='Update'></form></td></tr>";
                             }
                         } else {
