@@ -1,29 +1,10 @@
 <?php
-    include_once("functions.php"); // Import createConnection(); function
-    $conn = createConnection(); // Create a connection to the database via createConnection(); 
+include_once ("functions.php"); // Import createConnection(); function
+$conn = createConnection(); // Create a connection to the database via createConnection(); 
 
-    if (!$conn) { // Check connection
-        die("Connection failed: " . mysqli_connect_error());
-    }
-
-    // Check if id is set in POST
-    if(isset($_POST['row_id'])) {
-        // Get id from POST
-        $id = $_POST['row_id'];
-
-        // Create SQL query
-        $sql = "DELETE FROM TRANSACTIONS WHERE TRANSACTION_ID = '$id'";
-
-        // TODO: move this lower in the file so it works w/ styling from the rest of the page
-        // Execute SQL query and check result
-        if ($conn->query($sql) === TRUE) {
-            echo "<span id='confirm_deletion'>Record deleted successfully</span>";
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
-        }
-    }
-
-    // Rest of your code...
+if (!$conn) { // Check connection
+    die("Connection failed: " . mysqli_connect_error());
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -34,6 +15,24 @@
 </head>
 
 <body>
+    <?php
+    // Check if id is set in POST
+    if (isset($_POST['row_id'])) {
+        // Get id from POST
+        $id = $_POST['row_id'];
+
+        // Create SQL query
+        $sql = "DELETE FROM TRANSACTIONS WHERE TRANSACTION_ID = '$id'";
+
+        // TODO: move this lower in the file so it works w/ styling from the rest of the page
+        // Execute SQL query and check result
+        if ($conn->query($sql) === true) {
+            echo "<span id='confirm_deletion'>Record deleted successfully</span>";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+    ?>
     <span id="logout"><a href="logout.php">Logout</a></span>
     <div class="container">
         <div class="header">
