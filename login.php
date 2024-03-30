@@ -4,6 +4,12 @@ session_start(); // start or resume the session
 error_reporting(E_ALL); // report errors of all levels
 ini_set("display_errors", 1); // display those errors
 
+if (isset($_SESSION["noCredentials"])) { // if the user tried to access a page without logging in
+    $promptText = "You must log in to access that page.";
+    unset($_SESSION["noCredentials"]);
+} else {
+    $promptText = "Please enter a username and password.";
+}
 if (isset($_SESSION["user_id"])) { // if the user is already logged in, redirect them to the select page
     header("Location: select.php");
 } elseif (isset($_POST["username"]) && isset($_POST["password"])) {
@@ -19,8 +25,6 @@ if (isset($_SESSION["user_id"])) { // if the user is already logged in, redirect
         $promptText =
             "The entered username or password is incorrect.<br>Please try again.";
     }
-} else {
-    $promptText = "Please enter a username and password.";
 }
 ?>
 <!DOCTYPE html>
@@ -50,7 +54,7 @@ if (isset($_SESSION["user_id"])) { // if the user is already logged in, redirect
             </ul>
         </div>
         <div id="loginbox">
-            <h1>Login</h1>           
+            <h1>Login</h1>
             <form action="login.php" method="post">
                 <input type="text" name="username" placeholder="Username" required><br>
                 <input type="password" name="password" placeholder="Password" required><br>
