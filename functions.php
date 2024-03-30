@@ -16,10 +16,11 @@ function createConnection()
 
 function redirectLogin()
 {
-    // set a variable in the session to indicate that the user tried to access a page without logging in
-    $_SESSION['triedNoLogin'] = "no";
-    header("Location: login.php");
-    exit();
+if (!isset($_SESSION["user_id"])) {
+        $_SESSION["noCredentials"] = "yes";
+        header("Location: login.php");
+        exit();
+    }
 }
 
 // Function to validate and authenticate user login
