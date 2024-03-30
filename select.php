@@ -1,5 +1,5 @@
 <?php
-    include("functions.php"); // Import createConnection(); function
+    include_once("functions.php"); // Import createConnection(); function
     $conn = createConnection(); // Create a connection to the database via createConnection(); 
 
     if (!$conn) { // Check connection
@@ -34,6 +34,7 @@
 </head>
 
 <body>
+    <span id="logout"><a href="logout.php">Logout</a></span>
     <div class="container">
         <div class="header">
             <h1>Fuel Stock Interface</h1>
