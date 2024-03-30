@@ -48,13 +48,11 @@ th, td {
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    word-wrap: break-word;
+    white-space: normal;
 }
 tr:hover {
     background-color: #5a5a5a;
-}
-td, th {
-    word-wrap: break-word;
-    white-space: normal;
 }
 
 #confirm_deletion {
