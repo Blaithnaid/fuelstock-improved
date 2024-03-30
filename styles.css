@@ -59,3 +59,15 @@ tr:hover {
     background-color: white;
     color: black;
 }
+
+#logout {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 5px 10px;
+}
+#logout:hover {
+    border: 1px solid #F4442E;
+    background-color: white;
+    color: #F4442E;
+}
