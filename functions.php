@@ -34,6 +34,9 @@ function validateUser($username, $password)
         if (password_verify($password, $row['password'])) {
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['username'] = $row['username'];
+            if ($row['isAdmin'] == 1) {
+                $_SESSION['isAdmin'] = true;
+            }
             return true;
         }
         return "A user with that username does not exist. Please try again.";
