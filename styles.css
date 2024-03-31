@@ -5,29 +5,35 @@ body {
     background-color: #000000;
     color: #FFFFFF;
 }
+
 /* center container div within body */
 .container {
     width: 85%;
     margin: 0 auto;
     text-align: center;
 }
+
 /* header */
 .header {
     padding: 1px;
 }
+
 /* content */
 .content {
     padding: 1px;
 }
+
 /* top menu styling */
 ul {
     padding-inline-start: 0px;
     list-style-type: none;
 }
+
 ul li {
     display: inline-block;
     padding: 0px 1%;
 }
+
 ul li a {
     text-decoration: none;
     color: #fff;
@@ -35,22 +41,27 @@ ul li a {
     border: 1px solid #000;
     transition: 0.6s ease;
 }
+
 ul li a:hover {
     color: #F4442E;
 }
+
 /* table */
 table {
     border-collapse: collapse;
     width: 100%;
     table-layout: fixed;
 }
-th, td {
+
+th,
+td {
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #ddd;
     word-wrap: break-word;
     white-space: normal;
 }
+
 tr:hover {
     background-color: #5a5a5a;
 }
@@ -60,14 +71,67 @@ tr:hover {
     color: black;
 }
 
-#logout {
+/* context box for logout button and admin settings */
+#contextbox {
     position: absolute;
+    display: flex;
     right: 0;
     top: 0;
-    padding: 5px 10px;
+    padding: 5px 5px;
 }
-#logout:hover {
-    border: 1px solid #F4442E;
-    background-color: white;
-    color: #F4442E;
+
+#contextbox div {
+    size: fit-content;
+    background-color: #707070;
+    margin: 0 5px;
+    padding: 5px 5px;
+    border: 1px solid #FFF;
+    color: white;
+    text-decoration: none;
+}
+
+#contextbox a {
+    color: white;
+    text-decoration: none;
+}
+
+#contextbox div:hover {
+    background-color: #F4442E;
+}
+
+/* insert page styling */
+.insert {
+    margin: 0 auto;
+    width: 50%;
+    padding: 20px;
+    border: 1px solid #B0C4DE;
+    background: black;
+    border-radius: 0px 0px 10px 10px;
+}
+.insert label {
+    display: block;
+    margin: 10px 0px 5px;
+}
+.insert input[type=text], .insert input[type=date], .insert input[type=number], .insert textarea {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #B0C4DE;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.insert input[type=submit] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #B0C4DE;
+    border-radius: 5px;
+    background: #B0C4DE;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+}
+.insert input[type=submit]:hover {
+    background: #A9A9A9;
+}
+.insert textarea {
+    height: 100px;
 }
