@@ -2,7 +2,7 @@
 session_start(); // Start session
 include_once "functions.php"; // Import createConnection(); function
 redirectLogin(); // Check if user is logged in
-$conn = createConnection(); // Create a connection to the database via createConnection(); 
+$conn = createConnection(); // Create a connection to the database via createConnection();
 
 if (!$conn) { // Check connection
     die("Connection failed: " . mysqli_connect_error());
@@ -26,7 +26,6 @@ if (!$conn) { // Check connection
         // Create SQL query
         $sql = "DELETE FROM TRANSACTIONS WHERE TRANSACTION_ID = '$id'";
 
-        // TODO: move this lower in the file so it works w/ styling from the rest of the page
         // Execute SQL query and check result
         if ($conn->query($sql) === true) {
             echo "<span id='confirm_deletion'>Record deleted successfully</span>";
@@ -35,10 +34,13 @@ if (!$conn) { // Check connection
         }
     }
     ?>
-    <span id="logout"><a href="logout.php">Logout</a></span>
+    <div id="contextbox">
+        <a href="logout.php"><div>Logout</div></a>
+        <?php if ($_SESSION["isAdmin"] === true) {echo "<a href='admin.php'><div>Admin Settings</div></a>";}?>
+    </div>
     <div class="container">
         <div class="header">
-            <h1>Fuel Stock Interface</h1>
+            <h1>Fuel Stock Interface - Select/Update/Delete</h1>
             <ul id="menu">
                 <li><a href="select.php"><b><u>Select/Delete/Update</u></b></a></li>
                 <li><a href="insert.php"><u>Insert</u></a></li>
@@ -62,6 +64,7 @@ if (!$conn) { // Check connection
                     <option value="OTHER_DETAILS">Other Details</option>
                 </select>
             </form>
+            <br>
             <table>
                 <thead>
                     <tr>
