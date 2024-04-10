@@ -32,13 +32,15 @@ redirectLogin();
         <div class="content">
             <form action="insert.php" method="post" class="insert">
                 <label for="fuel_type_code">Fuel Type Code: </label>
-                <input type="text" name="fuel_type_code" id="fuel_type_code">
+                <input required type="number" name="fuel_type_code" id="fuel_type_code" min="0" max="3"
+                    oninput="validity.valid||(value='');">
                 <label for="transaction_type_code">Transaction Type Code: </label>
-                <input type="text" name="transaction_type_code" id="transaction_type_code">
+                <input required type="number" name="transaction_type_code" id="transaction_type_code" min="0" max="3"
+                    oninput="validity.valid||(value='');">
                 <label for="transaction_date">Transaction Date: </label>
-                <input type="date" name="transaction_date" id="transaction_date">
+                <input required type="date" name="transaction_date" id="transaction_date">
                 <label for="transaction_amount">Transaction Amount: </label>
-                <input type="number" name="transaction_amount" id="transaction_amount">
+                <input required type="number" name="transaction_amount" id="transaction_amount">
                 <label for="other_details">Other Details: </label>
                 <textarea name="other_details" id="other_details"></textarea>
                 <input type="submit" name="submit" value="Submit">
@@ -51,6 +53,24 @@ redirectLogin();
                 $transaction_date = DateTime::createFromFormat('Y-m-d', $_POST['transaction_date'])->format('d/m/y');
                 $transaction_amount = $_POST['transaction_amount'];
                 $other_details = $_POST['other_details'];
+
+                // Check if any fields are empty
+                if (empty($fuel_type_code) || empty($transaction_type_code) || empty($transaction_date) || empty($transaction_amount)) {
+                    $errText = "Error: One or more fields are empty";
+                    return;
+                }
+
+                // Check if transaction amount is negative
+                if ($transaction_amount < 0) {
+                    $errText = "Error: Transaction amount cannot be negative";
+                    return;
+                }
+
+                // Check if transaction date is in the future
+                if (new DateTime($transaction_date) > new DateTime()) {
+                    $errText = "Error: Transaction date cannot be in the future";
+                    return;
+                }
 
                 // Create connection
                 $conn = createConnection();
@@ -72,6 +92,9 @@ redirectLogin();
                 $conn->close();
             }
             ?>
+            <div>
+                <p><?php echo $errText ?></p>
+            </div>
         </div>
     </div>
 </body>
