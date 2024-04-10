@@ -1,32 +1,9 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: localhost
--- Generation Time: Dec 21, 2023 at 03:58 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- G00405899 / Iarla Sparrow Burke
+-- OLD SQL FILE: ONLY FOR REFERENCE
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `FUELSTOCK`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `FUEL_PRICES`
---
-
 CREATE TABLE `FUEL_PRICES` (
   `FUEL_PRICE_ID` smallint(2) NOT NULL,
   `FUEL_TYPE_CODE` smallint(2) DEFAULT NULL,
@@ -34,11 +11,6 @@ CREATE TABLE `FUEL_PRICES` (
   `UNIT_BUYING_PRICE` double DEFAULT NULL,
   `UNIT_SALES_PRICE` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `FUEL_PRICES`
---
-
 INSERT INTO `FUEL_PRICES` (`FUEL_PRICE_ID`, `FUEL_TYPE_CODE`, `FUEL_PRICE_DATE`, `UNIT_BUYING_PRICE`, `UNIT_SALES_PRICE`) VALUES
 (1, 1, '15/11/23', 1.2, 1.4),
 (2, 2, '15/11/23', 1.3, 1.5),
@@ -86,23 +58,12 @@ INSERT INTO `FUEL_PRICES` (`FUEL_PRICE_ID`, `FUEL_TYPE_CODE`, `FUEL_PRICE_DATE`,
 (44, 2, '29/11/23', 2, 2.2),
 (45, 3, '29/11/23', 0.8, 0.9);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `FUEL_STOCK_LEVELS`
---
-
 CREATE TABLE `FUEL_STOCK_LEVELS` (
   `STOCK_LEVEL_ID` int(11) NOT NULL,
   `STOCK_RECORDING_DATE` varchar(9) NOT NULL,
   `FUEL_TYPE_CODE` smallint(2) DEFAULT NULL,
   `QUANTITY_IN_STOCK` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `FUEL_STOCK_LEVELS`
---
-
 INSERT INTO `FUEL_STOCK_LEVELS` (`STOCK_LEVEL_ID`, `STOCK_RECORDING_DATE`, `FUEL_TYPE_CODE`, `QUANTITY_IN_STOCK`) VALUES
 (1, '15/11/23', 1, 100),
 (2, '15/11/23', 2, 150),
@@ -111,52 +72,24 @@ INSERT INTO `FUEL_STOCK_LEVELS` (`STOCK_LEVEL_ID`, `STOCK_RECORDING_DATE`, `FUEL
 (5, '16/11/23', 2, 140),
 (6, '16/11/23', 3, 60);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `REF_FUEL_TYPES`
---
-
 CREATE TABLE `REF_FUEL_TYPES` (
   `FUEL_TYPE_CODE` smallint(2) NOT NULL,
   `FUEL_TYPE_NAME` varchar(16) DEFAULT NULL,
   `FUEL_TYPE_DESCRIPTION` varchar(64) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `REF_FUEL_TYPES`
---
-
 INSERT INTO `REF_FUEL_TYPES` (`FUEL_TYPE_CODE`, `FUEL_TYPE_NAME`, `FUEL_TYPE_DESCRIPTION`) VALUES
 (1, 'Petrol', 'Standard unleaded gasoline'),
 (2, 'Diesel', 'Diesel fuel for diesel engines'),
 (3, 'Electricity', 'Electric power for electric vehicles');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `REF_TRANSACTION_TYPES`
---
-
 CREATE TABLE `REF_TRANSACTION_TYPES` (
   `TRANSACTION_TYPE_CODE` int(11) NOT NULL,
   `TRANSACTION_TYPE_DESCRIPTION` varchar(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `REF_TRANSACTION_TYPES`
---
-
 INSERT INTO `REF_TRANSACTION_TYPES` (`TRANSACTION_TYPE_CODE`, `TRANSACTION_TYPE_DESCRIPTION`) VALUES
 (1, 'Purchase'),
 (2, 'Sale'),
 (3, 'Refund');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `TRANSACTIONS`
---
 
 CREATE TABLE `TRANSACTIONS` (
   `TRANSACTION_ID` smallint(2) NOT NULL,
@@ -166,11 +99,6 @@ CREATE TABLE `TRANSACTIONS` (
   `TRANSACTION_AMOUNT` int(11) DEFAULT NULL,
   `OTHER_DETAILS` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `TRANSACTIONS`
---
-
 INSERT INTO `TRANSACTIONS` (`TRANSACTION_ID`, `FUEL_TYPE_CODE`, `TRANSACTION_TYPE_CODE`, `TRANSACTION_DATE`, `TRANSACTION_AMOUNT`, `OTHER_DETAILS`) VALUES
 (1, 1, 1, '15/11/23', 100, 'Filled up car with petrol'),
 (2, 2, 2, '15/11/23', 150, 'Filled up truck with diesel'),
@@ -198,84 +126,38 @@ INSERT INTO `TRANSACTIONS` (`TRANSACTION_ID`, `FUEL_TYPE_CODE`, `TRANSACTION_TYP
 (24, 1, 2, '28/11/23', 220, 'Filled up van with petrol & bought can of diesel'),
 (27, 1, 2, '21/12/23', 2035, 'Petrol for car');
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `FUEL_PRICES`
---
 ALTER TABLE `FUEL_PRICES`
   ADD PRIMARY KEY (`FUEL_PRICE_ID`),
   ADD KEY `FUEL_TYPE_CODE` (`FUEL_TYPE_CODE`);
 
---
--- Indexes for table `FUEL_STOCK_LEVELS`
---
 ALTER TABLE `FUEL_STOCK_LEVELS`
   ADD PRIMARY KEY (`STOCK_LEVEL_ID`),
   ADD KEY `FUEL_TYPE_CODE` (`FUEL_TYPE_CODE`);
 
---
--- Indexes for table `REF_FUEL_TYPES`
---
 ALTER TABLE `REF_FUEL_TYPES`
   ADD PRIMARY KEY (`FUEL_TYPE_CODE`);
 
---
--- Indexes for table `REF_TRANSACTION_TYPES`
---
 ALTER TABLE `REF_TRANSACTION_TYPES`
   ADD PRIMARY KEY (`TRANSACTION_TYPE_CODE`);
 
---
--- Indexes for table `TRANSACTIONS`
---
 ALTER TABLE `TRANSACTIONS`
   ADD PRIMARY KEY (`TRANSACTION_ID`),
   ADD KEY `FUEL_TYPE_CODE` (`FUEL_TYPE_CODE`),
   ADD KEY `TRANSACTION_TYPE_CODE` (`TRANSACTION_TYPE_CODE`);
 
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `FUEL_PRICES`
---
 ALTER TABLE `FUEL_PRICES`
   MODIFY `FUEL_PRICE_ID` smallint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
---
--- AUTO_INCREMENT for table `TRANSACTIONS`
---
 ALTER TABLE `TRANSACTIONS`
   MODIFY `TRANSACTION_ID` smallint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `FUEL_PRICES`
---
 ALTER TABLE `FUEL_PRICES`
   ADD CONSTRAINT `fuel_prices_ibfk_1` FOREIGN KEY (`FUEL_TYPE_CODE`) REFERENCES `REF_FUEL_TYPES` (`FUEL_TYPE_CODE`);
 
---
--- Constraints for table `FUEL_STOCK_LEVELS`
---
 ALTER TABLE `FUEL_STOCK_LEVELS`
   ADD CONSTRAINT `fuel_stock_levels_ibfk_1` FOREIGN KEY (`FUEL_TYPE_CODE`) REFERENCES `REF_FUEL_TYPES` (`FUEL_TYPE_CODE`);
 
---
--- Constraints for table `TRANSACTIONS`
---
 ALTER TABLE `TRANSACTIONS`
   ADD CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`FUEL_TYPE_CODE`) REFERENCES `REF_FUEL_TYPES` (`FUEL_TYPE_CODE`),
   ADD CONSTRAINT `transactions_ibfk_2` FOREIGN KEY (`TRANSACTION_TYPE_CODE`) REFERENCES `REF_TRANSACTION_TYPES` (`TRANSACTION_TYPE_CODE`);
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
