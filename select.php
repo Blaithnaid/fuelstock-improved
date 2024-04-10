@@ -65,7 +65,7 @@ if (!$conn) { // Check connection
                 </select>
             </form>
             <br>
-            <table>
+            <table aria-label="Fuel Stock Transactions">
                 <thead>
                     <tr>
                         <th>Transaction ID</th>
