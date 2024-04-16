@@ -1,7 +1,7 @@
 -- Dynamic Web Development Framework ~ Assignment 2 ~ Improved Fuel Stock Management System
 -- Author: Iarla Sparrow Burke ~ G00405899 ~ Created: 2024
 -- Set storage engine to InnoDB
-SET default_storage_engine=InnoDB;
+SET default_storage_engine = InnoDB;
 -- Delete database if it currently exists
 DROP DATABASE IF EXISTS FUELSTOCK_BETA;
 -- Create database with utf8mb4 character set and utf8mb4_unicode_ci collation
@@ -13,69 +13,125 @@ USE FUELSTOCK_BETA;
 
 DROP TABLE IF EXISTS REF_FUEL_TYPES; -- Delete the table if it exists, then create it
 CREATE TABLE REF_FUEL_TYPES (
-    FUEL_TYPE_CODE SMALLINT(2) UNSIGNED NOT NULL AUTO_INCREMENT, -- Primary key - cannot be negative, or null
-    FUEL_TYPE_NAME ENUM ('Petrol', 'Diesel', 'Electricity') NOT NULL, -- Name of fuel type. enum of 3 values
-    FUEL_TYPE_DESCRIPTION VARCHAR(64) NOT NULL, -- Description of fuel type. varchar of length 64
-    LAST_EDITED TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Timestamp of last edit
+    FUEL_TYPE_CODE SMALLINT(2) UNSIGNED NOT NULL AUTO_INCREMENT,
+    -- Primary key - cannot be negative, or null
+    FUEL_TYPE_NAME ENUM ('Petrol', 'Diesel', 'Electricity') NOT NULL,
+    -- Name of fuel type. enum of 3 values
+    FUEL_TYPE_DESCRIPTION VARCHAR(64) NOT NULL,
+    -- Description of fuel type. varchar of length 64
+    LAST_EDITED TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    -- Timestamp of last edit
     PRIMARY KEY (FUEL_TYPE_CODE)
 );
-INSERT INTO REF_FUEL_TYPES (FUEL_TYPE_NAME, FUEL_TYPE_DESCRIPTION) VALUES ('Petrol', 'Standard unleaded gasoline');
-INSERT INTO REF_FUEL_TYPES (FUEL_TYPE_NAME, FUEL_TYPE_DESCRIPTION) VALUES ('Diesel', 'Diesel fuel for diesel engines');
-INSERT INTO REF_FUEL_TYPES (FUEL_TYPE_NAME, FUEL_TYPE_DESCRIPTION) VALUES ('Electricity', 'Electric power for electric vehicles');
+INSERT INTO REF_FUEL_TYPES (FUEL_TYPE_NAME, FUEL_TYPE_DESCRIPTION)
+VALUES 
+    (
+        'Petrol', 
+        'Standard unleaded gasoline'
+    ),
+    (
+        'Diesel', 
+        'Diesel fuel for diesel engines'
+    ),
+    (
+        'Electricity',
+        'Electric power for electric vehicles'
+    );
 
-DROP TABLE IF EXISTS REF_TRANSACTION_TYPES; -- Delete the table if it exists, then create it
+
+
+DROP TABLE IF EXISTS REF_TRANSACTION_TYPES;
+-- Delete the table if it exists, then create it
 CREATE TABLE REF_TRANSACTION_TYPES (
-    TRANSACTION_TYPE_CODE SMALLINT(2) UNSIGNED NOT NULL AUTO_INCREMENT, -- Primary key - cannot be negative, or null
-    TRANSACTION_TYPE_NAME ENUM ('Purchase', 'Sale', 'Refund') NOT NULL, -- Name of transaction type. enum of 3 values
-    LAST_EDITED TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Timestamp of last edit
+    TRANSACTION_TYPE_CODE SMALLINT(2) UNSIGNED NOT NULL AUTO_INCREMENT,
+    -- Primary key - cannot be negative, or null
+    TRANSACTION_TYPE_NAME ENUM ('Purchase', 'Sale', 'Refund') NOT NULL,
+    -- Name of transaction type. enum of 3 values
+    LAST_EDITED TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    -- Timestamp of last edit
     PRIMARY KEY (TRANSACTION_TYPE_CODE)
 );
-INSERT INTO REF_TRANSACTION_TYPES (TRANSACTION_TYPE_NAME) VALUES (1);
-INSERT INTO REF_TRANSACTION_TYPES (TRANSACTION_TYPE_NAME) VALUES (2);
-INSERT INTO REF_TRANSACTION_TYPES (TRANSACTION_TYPE_NAME) VALUES (3);
+INSERT INTO REF_TRANSACTION_TYPES (TRANSACTION_TYPE_NAME) VALUES 
+    (1),
+    (2),
+    (3);
 
-DROP TABLE IF EXISTS FUEL_PRICES; -- Delete the table if it exists, then create it
+
+
+DROP TABLE IF EXISTS FUEL_PRICES;
+-- Delete the table if it exists, then create it
 CREATE TABLE FUEL_PRICES (
     FUEL_PRICE_ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
     FUEL_TYPE_CODE SMALLINT(2) UNSIGNED NOT NULL,
     FUEL_PRICE_DATE DATE NOT NULL,
     UNIT_BUYING_PRICE DOUBLE UNSIGNED NOT NULL,
     UNIT_SALES_PRICE DOUBLE UNSIGNED NOT NULL,
-    CURRENCY_SYMBOL VARCHAR(10) NOT NULL DEFAULT 0xE282AC, -- Default currency symbol is €
-    LAST_EDITED TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Timestamp of last edit
+    CURRENCY_SYMBOL VARCHAR(10) NOT NULL DEFAULT 0xE282AC,
+    -- Default currency symbol is €
+    LAST_EDITED TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    -- Timestamp of last edit
     PRIMARY KEY (FUEL_PRICE_ID),
     FOREIGN KEY (FUEL_TYPE_CODE) REFERENCES REF_FUEL_TYPES(FUEL_TYPE_CODE)
 );
+INSERT INTO FUEL_PRICES (
+        FUEL_TYPE_CODE,
+        FUEL_PRICE_DATE,
+        UNIT_BUYING_PRICE,
+        UNIT_SALES_PRICE
+    ) VALUES 
+    (1, '2024-01-01', 1.50, 1.60),
+    (2, '2024-01-01', 1.40, 1.50),
+    (3, '2024-01-01', 0.20, 0.25),
+    (1, '2024-01-02', 1.50, 1.60),
+    (2, '2024-01-02', 1.40, 1.50),
+    (3, '2024-01-02', 0.20, 0.25),
+    (1, '2024-01-03', 1.50, 1.60),
+    (2, '2024-01-03', 1.40, 1.50),
+    (3, '2024-01-03', 0.20, 0.25),
+    (1, '2024-01-04', 1.50, 1.60),
+    (2, '2024-01-04', 1.40, 1.50),
+    (3, '2024-01-04', 0.20, 0.25),
+    (1, '2024-01-05', 1.50, 1.60),
+    (2, '2024-01-05', 1.40, 1.50),
+    (3, '2024-01-05', 0.20, 0.25);
 
-DROP TABLE IF EXISTS FUEL_STOCK_LEVELS; -- Delete the table if it exists, then create it
+
+    
+DROP TABLE IF EXISTS FUEL_STOCK_LEVELS;
+-- Delete the table if it exists, then create it
 CREATE TABLE FUEL_STOCK_LEVELS (
     STOCK_LEVEL_ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
     STOCK_RECORDING_DATE DATE NOT NULL,
     FUEL_TYPE_CODE SMALLINT(2) UNSIGNED NOT NULL,
-	QUANTITY_IN_STOCK DOUBLE UNSIGNED NOT NULL,
-    LAST_EDITED TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Timestamp of last edit
+    QUANTITY_IN_STOCK DOUBLE UNSIGNED NOT NULL,
+    LAST_EDITED TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    -- Timestamp of last edit
     PRIMARY KEY (STOCK_LEVEL_ID),
     FOREIGN KEY (FUEL_TYPE_CODE) REFERENCES REF_FUEL_TYPES(FUEL_TYPE_CODE)
 );
-
 -- some fake insert statements for the FUEL_STOCK_LEVELS table
-INSERT INTO FUEL_STOCK_LEVELS (STOCK_RECORDING_DATE, FUEL_TYPE_CODE, QUANTITY_IN_STOCK) VALUES ('2024-01-01', 1, 1203);
-INSERT INTO FUEL_STOCK_LEVELS (STOCK_RECORDING_DATE, FUEL_TYPE_CODE, QUANTITY_IN_STOCK) VALUES ('2024-01-01', 2, 4021);
-INSERT INTO FUEL_STOCK_LEVELS (STOCK_RECORDING_DATE, FUEL_TYPE_CODE, QUANTITY_IN_STOCK) VALUES ('2024-01-01', 3, 1135);
-INSERT INTO FUEL_STOCK_LEVELS (STOCK_RECORDING_DATE, FUEL_TYPE_CODE, QUANTITY_IN_STOCK) VALUES ('2024-01-02', 1, 1000);
-INSERT INTO FUEL_STOCK_LEVELS (STOCK_RECORDING_DATE, FUEL_TYPE_CODE, QUANTITY_IN_STOCK) VALUES ('2024-01-02', 2, 1000);
-INSERT INTO FUEL_STOCK_LEVELS (STOCK_RECORDING_DATE, FUEL_TYPE_CODE, QUANTITY_IN_STOCK) VALUES ('2024-01-02', 3, 1000);
-INSERT INTO FUEL_STOCK_LEVELS (STOCK_RECORDING_DATE, FUEL_TYPE_CODE, QUANTITY_IN_STOCK) VALUES ('2024-01-03', 1, 1000);
-INSERT INTO FUEL_STOCK_LEVELS (STOCK_RECORDING_DATE, FUEL_TYPE_CODE, QUANTITY_IN_STOCK) VALUES ('2024-01-03', 2, 1000);
-INSERT INTO FUEL_STOCK_LEVELS (STOCK_RECORDING_DATE, FUEL_TYPE_CODE, QUANTITY_IN_STOCK) VALUES ('2024-01-03', 3, 1000);
-INSERT INTO FUEL_STOCK_LEVELS (STOCK_RECORDING_DATE, FUEL_TYPE_CODE, QUANTITY_IN_STOCK) VALUES ('2024-01-04', 1, 1000);
-INSERT INTO FUEL_STOCK_LEVELS (STOCK_RECORDING_DATE, FUEL_TYPE_CODE, QUANTITY_IN_STOCK) VALUES ('2024-01-04', 2, 1000);
-INSERT INTO FUEL_STOCK_LEVELS (STOCK_RECORDING_DATE, FUEL_TYPE_CODE, QUANTITY_IN_STOCK) VALUES ('2024-01-04', 3, 1000);
-INSERT INTO FUEL_STOCK_LEVELS (STOCK_RECORDING_DATE, FUEL_TYPE_CODE, QUANTITY_IN_STOCK) VALUES ('2024-01-05', 1, 1000);
-INSERT INTO FUEL_STOCK_LEVELS (STOCK_RECORDING_DATE, FUEL_TYPE_CODE, QUANTITY_IN_STOCK) VALUES ('2024-01-05', 2, 1000);
-INSERT INTO FUEL_STOCK_LEVELS (STOCK_RECORDING_DATE, FUEL_TYPE_CODE, QUANTITY_IN_STOCK) VALUES ('2024-01-05', 3, 1000);
-
-DROP TABLE IF EXISTS TRANSACTIONS; -- Delete the table if it exists, then create it
+INSERT INTO FUEL_STOCK_LEVELS (
+        STOCK_RECORDING_DATE,
+        FUEL_TYPE_CODE,
+        QUANTITY_IN_STOCK
+    )
+VALUES ('2024-01-01', 1, 1203),
+    ('2024-01-01', 2, 4021),
+    ('2024-01-01', 3, 1135),
+    ('2024-01-02', 1, 1000),
+    ('2024-01-02', 2, 1000),
+    ('2024-01-02', 3, 1000),
+    ('2024-01-03', 1, 1000),
+    ('2024-01-03', 2, 1000),
+    ('2024-01-03', 3, 1000),
+    ('2024-01-04', 1, 1000),
+    ('2024-01-04', 2, 1000),
+    ('2024-01-04', 3, 1000),
+    ('2024-01-05', 1, 1000),
+    ('2024-01-05', 2, 1000),
+    ('2024-01-05', 3, 1000);
+DROP TABLE IF EXISTS TRANSACTIONS;
+-- Delete the table if it exists, then create it
 CREATE TABLE TRANSACTIONS (
     TRANSACTION_ID SMALLINT(2) UNSIGNED NOT NULL AUTO_INCREMENT,
     FUEL_TYPE_CODE SMALLINT(2) UNSIGNED NOT NULL,
@@ -83,60 +139,215 @@ CREATE TABLE TRANSACTIONS (
     TRANSACTION_DATE DATE NOT NULL,
     TRANSACTION_AMOUNT INT,
     OTHER_DETAILS VARCHAR(255),
-    CURRENCY_SYMBOL VARCHAR(10) NOT NULL DEFAULT 0xE282AC, -- again, default currency symbol is €
-    LAST_EDITED TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Timestamp of last edit
+    CURRENCY_SYMBOL VARCHAR(10) NOT NULL DEFAULT 0xE282AC,
+    -- again, default currency symbol is €
+    LAST_EDITED TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    -- Timestamp of last edit
     PRIMARY KEY (TRANSACTION_ID),
     FOREIGN KEY (FUEL_TYPE_CODE) REFERENCES REF_FUEL_TYPES(FUEL_TYPE_CODE),
     FOREIGN KEY (TRANSACTION_TYPE_CODE) REFERENCES REF_TRANSACTION_TYPES(TRANSACTION_TYPE_CODE)
 );
-
 -- some fake insert statements for the TRANSACTIONS table
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (1, 1, '2024-01-01', 100, 'First purchase of petrol');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (2, 1, '2024-01-01', 100, 'First purchase of diesel');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (3, 1, '2024-01-01', 100, 'First purchase of electricity');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (1, 2, '2024-01-01', 100, 'First sale of petrol');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (2, 2, '2024-01-01', 100, 'First sale of diesel');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (3, 2, '2024-01-01', 100, 'First sale of electricity');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (1, 3, '2024-01-01', 100, 'First refund of petrol');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (2, 3, '2024-01-01', 100, 'First refund of diesel');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (3, 3, '2024-01-01', 100, 'First refund of electricity');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (1, 1, '2024-01-02', 100, 'Second purchase of petrol');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (2, 1, '2024-01-02', 100, 'Second purchase of diesel');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (3, 1, '2024-01-02', 100, 'Second purchase of electricity');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (1, 2, '2024-01-02', 100, 'Second sale of petrol');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (2, 2, '2024-01-02', 100, 'Second sale of diesel');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (3, 2, '2024-01-02', 100, 'Second sale of electricity');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (1, 3, '2024-01-02', 100, 'Second refund of petrol');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (2, 3, '2024-01-02', 100, 'Second refund of diesel');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (3, 3, '2024-01-02', 100, 'Second refund of electricity');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (1, 1, '2024-01-03', 100, 'Third purchase of petrol');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (2, 1, '2024-01-03', 100, 'Third purchase of diesel');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (3, 1, '2024-01-03', 100, 'Third purchase of electricity');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (1, 2, '2024-01-03', 100, 'Third sale of petrol');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (2, 2, '2024-01-03', 100, 'Third sale of diesel');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (3, 2, '2024-01-03', 100, 'Third sale of electricity');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (1, 3, '2024-01-03', 100, 'Third refund of petrol');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (2, 3, '2024-01-03', 100, 'Third refund of diesel');
-INSERT INTO TRANSACTIONS (FUEL_TYPE_CODE, TRANSACTION_TYPE_CODE, TRANSACTION_DATE, TRANSACTION_AMOUNT, OTHER_DETAILS) VALUES (3, 3, '2024-01-03', 100, 'Third refund of electricity');
-
-DROP TABLE IF EXISTS USERS; -- Delete the table if it exists, then create it
-CREATE TABLE USERS (
-    USER_ID INT UNSIGNED NOT NULL AUTO_INCREMENT, -- Primary key - cannot be negative, or null
-    USERNAME VARCHAR(32) NOT NULL, 
-    PASSWORD_HASH VARCHAR(64) NOT NULL, -- stores the hash generated by the password_hash() function
-    LAST_EDITED TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Timestamp of last edit
-    UNIQUE (USERNAME), -- Username must be unique
-    PRIMARY KEY (USER_ID)
-);
+INSERT INTO TRANSACTIONS (
+        FUEL_TYPE_CODE,
+        TRANSACTION_TYPE_CODE,
+        TRANSACTION_DATE,
+        TRANSACTION_AMOUNT,
+        OTHER_DETAILS
+    )
+VALUES (
+        1,
+        1,
+        '2024-01-01',
+        100,
+        'First purchase of petrol'
+    ),
+    (
+        2,
+        1,
+        '2024-01-01',
+        100,
+        'First purchase of diesel'
+    ),
+    (
+        3,
+        1,
+        '2024-01-01',
+        100,
+        'First purchase of electricity'
+    ),
+    (1, 2, '2024-01-01', 100, 'First sale of petrol'),
+    (2, 2, '2024-01-01', 100, 'First sale of diesel'),
+    (
+        3,
+        2,
+        '2024-01-01',
+        100,
+        'First sale of electricity'
+    ),
+    (
+        1,
+        3,
+        '2024-01-01',
+        100,
+        'First refund of petrol'
+    ),
+    (
+        2,
+        3,
+        '2024-01-01',
+        100,
+        'First refund of diesel'
+    ),
+    (
+        3,
+        3,
+        '2024-01-01',
+        100,
+        'First refund of electricity'
+    ),
+    (
+        1,
+        1,
+        '2024-01-02',
+        100,
+        'Second purchase of petrol'
+    ),
+    (
+        2,
+        1,
+        '2024-01-02',
+        100,
+        'Second purchase of diesel'
+    ),
+    (
+        3,
+        1,
+        '2024-01-02',
+        100,
+        'Second purchase of electricity'
+    ),
+    (
+        1,
+        2,
+        '2024-01-02',
+        100,
+        'Second sale of petrol'
+    ),
+    (
+        2,
+        2,
+        '2024-01-02',
+        100,
+        'Second sale of diesel'
+    ),
+    (
+        3,
+        2,
+        '2024-01-02',
+        100,
+        'Second sale of electricity'
+    ),
+    (
+        1,
+        3,
+        '2024-01-02',
+        100,
+        'Second refund of petrol'
+    ),
+    (
+        2,
+        3,
+        '2024-01-02',
+        100,
+        'Second refund of diesel'
+    ),
+    (
+        3,
+        3,
+        '2024-01-02',
+        100,
+        'Second refund of electricity'
+    ),
+    (
+        1,
+        1,
+        '2024-01-03',
+        100,
+        'Third purchase of petrol'
+    ),
+    (
+        2,
+        1,
+        '2024-01-03',
+        100,
+        'Third purchase of diesel'
+    ),
+    (
+        3,
+        1,
+        '2024-01-03',
+        100,
+        'Third purchase of electricity'
+    ),
+    (
+        1,
+        2,
+        '2024-01-03',
+        100,
+        'Third sale of petrol'
+    ),
+    (
+        2,
+        2,
+        '2024-01-03',
+        100,
+        'Third sale of diesel'
+    ),
+    (
+        3,
+        2,
+        '2024-01-03',
+        100,
+        'Third sale of electricity'
+    ),
+    (
+        1,
+        3,
+        '2024-01-03',
+        100,
+        'Third refund of petrol'
+    ),
+    (
+        2,
+        3,
+        '2024-01-03',
+        100,
+        'Third refund of diesel'
+    ),
+    (
+        3,
+        3,
+        '2024-01-03',
+        100,
+        'Third refund of electricity'
+    );
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
-  id int(11) unsigned NOT NULL AUTO_INCREMENT,
-  username varchar(250) NOT NULL DEFAULT '',
-  `password` varchar(255) NOT NULL DEFAULT '', -- escape password with backticks as it is a reserved word in MySQL
-  isAdmin BOOLEAN NOT NULL DEFAULT 0, -- 0 for false, 1 for true. controls access to admin pages
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`)
+    `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+    `username` varchar(250) NOT NULL DEFAULT '',
+    `password` varchar(255) NOT NULL DEFAULT '',
+    -- escape password with backticks as it is a reserved word in MySQL
+    `isAdmin` BOOLEAN NOT NULL DEFAULT 0,
+    -- 0 for false, 1 for true. controls access to admin pages
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `username` (`username`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
-
 -- add an admin user to the USERS table
-INSERT INTO USERS (USERNAME, PASSWORD) VALUES ('admin', '21232f297a57a5a743894a0e4a801fc3'); -- admin password is 'admin'
+INSERT INTO USERS (USERNAME, PASSWORD, ISADMIN)
+VALUES (
+        'roy',
+        '$2y$10$L/qNJSCldOca7bTO0Zd.V./z350Qdsf5CO3cz3SFGBDDDlzqaQd3W',
+        1
+    );
+-- admin password is 'admin'
