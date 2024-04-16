@@ -15,11 +15,13 @@ if (isset($_SESSION["user_id"])) { // if the user is already logged in, redirect
 } elseif (isset($_POST["username"]) && isset($_POST["password"])) {
     $username = $_POST["username"];
     $password = $_POST["password"];
+    $rememberme = isset($_POST["rememberme"]);
+
     $conn = createConnection();
     if (!$conn) {
         $promptText = "Connection failed: " . mysqli_connect_error();
     }
-    if (validateUser($username, $password) === true) {
+    if (validateUser($username, $password, $rememberme) === true) {
         header("Location: select.php");
     } else {
         $promptText =
@@ -56,8 +58,11 @@ if (isset($_SESSION["user_id"])) { // if the user is already logged in, redirect
         <div id="loginbox">
             <h1>Login</h1>
             <form action="login.php" method="post">
+                <label for="username">Username:</label><br>
                 <input type="text" name="username" placeholder="Username" required><br>
-                <input type="password" name="password" placeholder="Password" required><br>
+                <label for="password">Password:</label><br>
+                <input type="password" name="password" placeholder="Password" required><br><br>
+                <input type="checkbox" name="rememberme" value="0"> Remember me<br><br>
                 <input type="submit" value="Login">
             </form>
             <p>
