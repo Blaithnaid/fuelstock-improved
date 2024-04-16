@@ -2,8 +2,13 @@
 require_once 'functions.php'; // Import the functions.php file so we can use createConnection()
 // Start session
 session_start();
+error_reporting(E_ALL); // report errors of all levels
+ini_set("display_errors", 1); // display those errors
 // Check if user is logged in
 redirectLogin();
+
+// Set error text to empty
+$errorText = "";
 ?>
 <!DOCTYPE html>
 <html>
@@ -50,25 +55,26 @@ redirectLogin();
                 // Get row data from form
                 $fuel_type_code = $_POST['fuel_type_code'];
                 $transaction_type_code = $_POST['transaction_type_code'];
-                $transaction_date = DateTime::createFromFormat('Y-m-d', $_POST['transaction_date'])->format('d/m/y');
+                $transaction_date = $_POST['transaction_date'];
                 $transaction_amount = $_POST['transaction_amount'];
                 $other_details = $_POST['other_details'];
 
+
                 // Check if any fields are empty
                 if (empty($fuel_type_code) || empty($transaction_type_code) || empty($transaction_date) || empty($transaction_amount)) {
-                    $errText = "Error: One or more fields are empty";
+                    $errorText = "Error: One or more fields are empty";
                     return;
                 }
 
                 // Check if transaction amount is negative
                 if ($transaction_amount < 0) {
-                    $errText = "Error: Transaction amount cannot be negative";
+                    $errorText = "Error: Transaction amount cannot be negative";
                     return;
                 }
 
                 // Check if transaction date is in the future
                 if (new DateTime($transaction_date) > new DateTime()) {
-                    $errText = "Error: Transaction date cannot be in the future";
+                    $errorText = "Error: Transaction date cannot be in the future";
                     return;
                 }
 
@@ -92,8 +98,8 @@ redirectLogin();
                 $conn->close();
             }
             ?>
-            <div>
-                <p><?php echo $errText ?></p>
+            <div class="error-text">
+                <p><?php echo $errorText ?></p>
             </div>
         </div>
     </div>
