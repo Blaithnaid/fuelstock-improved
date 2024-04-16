@@ -1,7 +1,7 @@
 <?php
 require_once "functions.php";
 session_start();
-redirectLogin();
+checkLogin();
 ?>
 <!DOCTYPE html>
 <html>

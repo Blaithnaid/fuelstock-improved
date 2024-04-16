@@ -1,8 +1,8 @@
 <?php
+require_once "functions.php";
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 // Import the functions.php file
-require_once "functions.php";
 $returnText = "Usernames must be unique. Passwords must match.";
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] === "POST") {

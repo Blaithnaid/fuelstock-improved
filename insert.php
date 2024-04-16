@@ -5,7 +5,7 @@ session_start();
 error_reporting(E_ALL); // report errors of all levels
 ini_set("display_errors", 1); // display those errors
 // Check if user is logged in
-redirectLogin();
+checkLogin();
 
 // Set error text to empty
 $errorText = "";

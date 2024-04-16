@@ -1,7 +1,7 @@
 <?php
+require_once "functions.php"; // Import createConnection(); function
 session_start();
-include_once "functions.php"; // Import createConnection(); function
-redirectLogin(); // Check if user is logged in
+checkLogin(); // Check if user is logged in
 if (!isset($_SESSION["isAdmin"])) {
     header("Location: select.php");
     exit();

@@ -14,7 +14,7 @@ function createConnection()
     return $connection;
 }
 
-function redirectLogin()
+function checkLogin()
 {
 if (!isset($_SESSION["user_id"])) {
         $_SESSION["noCredentials"] = "yes";
