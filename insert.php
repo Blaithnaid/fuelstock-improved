@@ -36,12 +36,18 @@ $errorText = "";
         </div>
         <div class="content">
             <form action="insert.php" method="post" class="insert">
-                <label for="fuel_type_code">Fuel Type Code: </label>
-                <input required type="number" name="fuel_type_code" id="fuel_type_code" min="0" max="3"
-                    oninput="validity.valid||(value='');">
-                <label for="transaction_type_code">Transaction Type Code: </label>
-                <input required type="number" name="transaction_type_code" id="transaction_type_code" min="0" max="3"
-                    oninput="validity.valid||(value='');">
+                <label for="fuel_type_code">Fuel Type: </label>
+                <select required name="fuel_type_code" id="fuel_type_code">
+                    <option value="1">Petrol</option>
+                    <option value="2">Diesel</option>
+                    <option value="3">Electricity</option>
+                </select>
+                <label for="transaction_type_code">Transaction Type: </label>
+                <select required name="transaction_type_code" id="transaction_type_code">
+                    <option value="1">Purchase</option>
+                    <option value="2">Sale</option>
+                    <option value="3">Refund</option>
+                </select>
                 <label for="transaction_date">Transaction Date: </label>
                 <input required type="date" name="transaction_date" id="transaction_date">
                 <label for="transaction_amount">Transaction Amount: </label>
