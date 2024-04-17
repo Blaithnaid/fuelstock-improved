@@ -87,13 +87,23 @@ if (!$conn) { // Check connection
                         $searchq = $_POST['searchq'];
                         $columnq = $_POST['columnq'];
 
-                        // If the column is set to ALL, search all columns for the search term
                         if ($columnq == "ALL") {
-                            $sql = "SELECT * FROM TRANSACTIONS WHERE TRANSACTION_ID LIKE '%$searchq%' OR FUEL_TYPE_CODE LIKE '%$searchq%' OR TRANSACTION_TYPE_CODE LIKE '%$searchq%' OR TRANSACTION_DATE LIKE '%$searchq%' OR TRANSACTION_AMOUNT LIKE '%$searchq%' OR OTHER_DETAILS LIKE '%$searchq%'";
-                        }
-                        // Otherwise, search the specified column for the search term
-                        else {
-                            $sql = "SELECT * FROM TRANSACTIONS WHERE $columnq LIKE '%$searchq%'";
+                            $sql = "SELECT t.*, f.fuel_type_name, tr.transaction_type_name FROM TRANSACTIONS t 
+                                    LEFT JOIN ref_fuel_types f ON t.FUEL_TYPE_CODE = f.fuel_type_code 
+                                    LEFT JOIN ref_transaction_types tr ON t.TRANSACTION_TYPE_CODE = tr.transaction_type_code 
+                                    WHERE t.TRANSACTION_ID LIKE '%$searchq%' 
+                                    OR t.FUEL_TYPE_CODE LIKE '%$searchq%' 
+                                    OR t.TRANSACTION_TYPE_CODE LIKE '%$searchq%' 
+                                    OR t.TRANSACTION_DATE LIKE '%$searchq%' 
+                                    OR t.TRANSACTION_AMOUNT LIKE '%$searchq%' 
+                                    OR t.OTHER_DETAILS LIKE '%$searchq%'
+                                    OR f.fuel_type_name LIKE '%$searchq%'
+                                    OR tr.transaction_type_name LIKE '%$searchq%'";
+                        } else {
+                            $sql = "SELECT t.*, f.fuel_type_name, tr.transaction_type_name FROM TRANSACTIONS t 
+                                    LEFT JOIN ref_fuel_types f ON t.FUEL_TYPE_CODE = f.fuel_type_code 
+                                    LEFT JOIN ref_transaction_types tr ON t.TRANSACTION_TYPE_CODE = tr.transaction_type_code 
+                                    WHERE t.$columnq LIKE '%$searchq%'";
                         }
                         $result = $conn->query($sql);
 
@@ -101,7 +111,7 @@ if (!$conn) { // Check connection
                         if ($result->num_rows > 0) {
                             // output data of each row
                             while ($row = $result->fetch_assoc()) {
-                                echo "<tr><td>" . $row["TRANSACTION_ID"] . "</td><td>" . $row["FUEL_TYPE_CODE"] . "</td><td>" . $row["TRANSACTION_TYPE_CODE"] . "</td><td>" . $row["TRANSACTION_DATE"] . "</td><td>" . $row["CURRENCY_SYMBOL"] . $row["TRANSACTION_AMOUNT"] . "</td><td>" . $row["OTHER_DETAILS"] . "</td><td>" . $row["LAST_EDITED"] . "</td>";
+                                echo "<tr><td>" . $row["TRANSACTION_ID"] . "</td><td>" . $row["fuel_type_name"] . "</td><td>" . $row["transaction_type_name"] . "</td><td>" . $row["TRANSACTION_DATE"] . "</td><td>" . $row["CURRENCY_SYMBOL"] . $row["TRANSACTION_AMOUNT"] . "</td><td>" . $row["OTHER_DETAILS"] . "</td><td>" . $row["LAST_EDITED"] . "</td>";
                                 echo "<td><form action='' method='post' onsubmit='return confirm(\"Are you sure you want to delete this row?\");'><input type='hidden' name='row_id' value='" . $row["TRANSACTION_ID"] . "'><input type='submit' value='Delete'></form></td>";
                                 echo "<td><form action='update.php' method='post'><input type='hidden' name='id' value='" . $row["TRANSACTION_ID"] . "'><input type='submit' value='Update'></form></td></tr>";
                             }
