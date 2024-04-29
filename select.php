@@ -35,8 +35,12 @@ if (!$conn) { // Check connection
     }
     ?>
     <div id="contextbox">
-        <a href="logout.php"><div>Logout</div></a>
-        <?php if ($_SESSION["isAdmin"] === true) {echo "<a href='admin.php'><div>Admin Settings</div></a>";}?>
+        <a href="logout.php">
+            <div>Logout</div>
+        </a>
+        <?php if ($_SESSION["isAdmin"] === true) {
+            echo "<a href='admin.php'><div>Admin Settings</div></a>";
+        } ?>
     </div>
     <div class="container">
         <div class="header">
@@ -47,6 +51,9 @@ if (!$conn) { // Check connection
             </ul>
         </div>
         <div class="content">
+            <h3>
+                Welcome, <?php echo $_SESSION["username"]; ?>.
+            </h3>
             <p>Enter a search term below to query the database. Pick a table from the drop-down on the right to refine
                 your selection.</p>
             <form action="select.php" method="post">
