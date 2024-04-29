@@ -6,6 +6,12 @@ ini_set("display_errors", 1);
 $returnText = "Usernames must be unique. Passwords must match.";
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Check all fields are filled
+    if (empty($_POST["username"]) || empty($_POST["password"]) || empty($_POST["confirmpassword"])) {
+        $returnText = "All fields must be filled.";
+        exit();
+    }
+
     // Get the username and password from the form
     $username = $_POST["username"];
     $password = $_POST["password"];
@@ -79,11 +85,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <p>Enter your details below to sign up for an account.</p>
             <form id="signupform" action="signup.php" method="post">
                 <label for="username">Username: </label>
-                <input type="text" name="username" id="username">
+                <input type="text" name="username" id="username" required>
                 <label for="password">Password: </label>
-                <input type="password" name="password" id="password">
+                <input type="password" name="password" id="password" required>
                 <label for="confirmpassword">Confirm password: </label>
-                <input type="password" name="confirmpassword" id="confirmpassword"><br>
+                <input type="password" name="confirmpassword" id="confirmpassword" required><br>
                 <input type="submit" name="submit" value="Submit">
             </form>
             <div>
